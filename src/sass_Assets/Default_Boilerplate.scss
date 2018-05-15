@@ -2,8 +2,16 @@
 
 
 body{
-  background:$silvery;
-  color: #262d33;
+  background:rgb(199, 198, 197);
+  background-image:url('./Assets/landscape2.jpeg');
+  background-size:cover;
+
+  // filter: brightness(1.5) hue-rotate(230deg);
+  // background-blend-mode: saturation; 
+margin:0 auto;
+text-align:center;
+padding:0;
+  color: #72818e;
   font-family: 'Roboto', 'Open-sans';
 }
 
@@ -24,19 +32,13 @@ li {
 a {
   transition:3ms all;
   font-weight: bold;
-  color: #196cbf;
+  color: #849bb3;
   text-decoration : none;
   &:hover{
-    color:rgb(23, 182, 140);
+    color:hsl(14, 78%, 30%);
   }
   &.router-link-exact-active {
-    color: #1f5f43;
+    color:hsl(14, 78%, 35%);
   }
-}
-
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 

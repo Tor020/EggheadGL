@@ -1,29 +1,18 @@
+Web GL Notes
 
-[Link to fleshed out Vue Repo](https://github.com/Tor020/Webpack3-Cli-Vue) 
+##Lesson 2
+Web GL Concepts
 
-[Link to empty Vue Repo](https://github.com/Tor020/Empty-Vue)
+vertices - points in a 3d space
+shaders -  define how those points are interepretted and rendered on the screen
 
-### Notes
-
-make a  
-
-```Vue.config.js```
-
-for webpack options list [here](https://github.com/vuejs/vue-cli/blob/dev/docs/config.md)
+shader is actually a small program written in a C like language called `GLSL` or `openGlShaderLanguage`
+You write shaders as strings and then use javascript to compile those strings into function shader code
 
 
-#### Sass
-- [Sass](https://github.com/vuejs/vue-cli/blob/dev/docs/css.md)
-- [Vue-Docs for Sass](https://github.com/vuejs/vue-cli/blob/dev/docs/css.md)
+We're going to need to make two shaders, 
+- a vertex shader that will define how the vertices translated, scales, or otherwise transformed, 
+- a fragment shader that will determine the color of the pixels drawnbythose vertices.
 
-#### Pug
-- [PrePros Boilerplate HTML](https://github.com/Tor020/preprosboilerplate/tree/master/Dev)
-- [Pug](https://gist.github.com/gearmobile/e1be3359a667eb1e555b2c461955e800)
-- [HTML to Pug](https://html-to-pug.com/)
-- [Pug to HTML](https://pughtml.com/)
 
-#### Vue-Cli
-- [Full Vue-cli Docs](https://github.com/vuejs/vue-cli/tree/dev/docs)
-- [Vue-cli commands](https://github.com/vuejs/vue-cli/blob/dev/docs/cli.md)
-- Seems to be some weird way of passing options to webpack with [vue-cli](https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md#inspecting-the-projects-webpack-config) 
-
+[4:47-4:48 -- gl.useProgram](https://egghead.io/lessons/webgl-introduction-to-webgl-shaders)

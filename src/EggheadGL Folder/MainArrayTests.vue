@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  canvas(class='' id='canvas' @click='')
+  canvas(class='' id='canvas' width='600px' height='600px' @click='')
   input(type="button" value='RunMethod' @click="runMethod")
 </template>
 
@@ -28,7 +28,7 @@ export default {
     console.log(canvas);
     gl = canvas.getContext("webgl");
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0, 0, 1, 1);
+    gl.clearColor(1, 1, 1, 1);
   }
 
   function draw() {
@@ -37,7 +37,7 @@ export default {
 
 
 
-
+ 
 
           // End of Run Method
       },
@@ -53,7 +53,7 @@ export default {
 
 </script>
 <style lang="sass">
-    </style>
+</style>
 
 
 
