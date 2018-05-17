@@ -39,4 +39,17 @@
           return shader;
     }
 
-    export {getShaders}
+
+  function Φ(){
+console.log('test');
+  }
+
+
+
+
+
+
+
+    export {getShaders, Φ}
+
+

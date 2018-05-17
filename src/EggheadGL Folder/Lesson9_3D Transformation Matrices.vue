@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   canvas#canvas(width='600', height='600')
+  input(type="button" value='RunMethod' @click="runMethod")
   script#shader-vs(type='x-shader/x-vertex').
     attribute vec4 coords;
     attribute float pointSize;
@@ -20,21 +21,25 @@ div
 
 
 <script>
+import { getShaders as getShader } from '../EggheadGL Folder/getShaders.js'
+import { Φ as Φ } from '../EggheadGL Folder/getShaders.js'
+
 export default {
   computed: {},
 
   methods: {
     runMethod() {
       // Start of Run Method
+   
 var gl,
     shaderProgram,
     vertices,
     angle = 0;
 
-initGL();
-createShaders();
-createVertices();
-draw();
+  initGL();
+  createShaders();
+  createVertices();
+  draw();
 
 function initGL() {
   var canvas = document.getElementById("canvas");
@@ -80,10 +85,14 @@ function createVertices() {
 }
 
 function draw() {
-  rotateY(angle += 0.01);
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
-  requestAnimationFrame(draw);
+
+  rotateZ(angle += .005);
+  rotateX(angle += .005);
+  rotateY(angle += .005);
+  //f
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    requestAnimationFrame(draw);
 }
 
 function rotateY(angle) {
@@ -109,58 +118,17 @@ function rotateZ(angle) {
   var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
   gl.uniformMatrix4fv(transformMatrix, false, matrix);
 }
-
-  /*
-   * https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context
-   */
-  function getShader(gl, id) {
-    var shaderScript, theSource, currentChild, shader;
-
-    shaderScript = document.getElementById(id);
-
-    if (!shaderScript) {
-      return null;
-    }
-
-    theSource = "";
-    currentChild = shaderScript.firstChild;
-
-    while (currentChild) {
-      if (currentChild.nodeType == currentChild.TEXT_NODE) {
-        theSource += currentChild.textContent;
-      }
-
-      currentChild = currentChild.nextSibling;
-    }
-    if (shaderScript.type == "x-shader/x-fragment") {
-      shader = gl.createShader(gl.FRAGMENT_SHADER);
-    } else if (shaderScript.type == "x-shader/x-vertex") {
-      shader = gl.createShader(gl.VERTEX_SHADER);
-    } else {
-      // Unknown shader type
-      return null;
-    }
-    gl.shaderSource(shader, theSource);
-
-// Compile the shader program
-    gl.compileShader(shader);
-
-// See if it compiled successfully
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
-      return null;
-    }
-
-    return shader;
-  }
-
-
-
-
-
-
-
-
+function rotateX(angle) {
+  var cos = Math.cos(angle),
+      sin = Math.sin(angle),
+      matrix = new Float32Array(
+                [ 1,  0,   0,   0,
+                  0, cos, -sin, 0,
+                  0, sin, -cos, 0,
+                  0,  0,   0,   1 ]  );
+  var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
+  gl.uniformMatrix4fv(transformMatrix, false, matrix);
+}
 
 
 

@@ -1,6 +1,10 @@
 Web GL Notes
 ## General Assistance
 [commented boilerplate goes over the binding and compiling of shaders referenced in every webgl ](https://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html)
+[matrixMath](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Matrix_math_for_the_web)
+
+[matrix gist](https://github.com/start940315/matrix/blob/master/matrix.js)
+[decompose matrix gist?](https://github.com/michaelvillar/dynamics.js/blob/master/src/dynamics.coffee#L766-L920)
 
 ## Lesson 2
 
@@ -115,6 +119,24 @@ function createVertices() {
 ```
 ```
 
+```
+
+
+## Misc 
+calculates 
+```
+canvas.addEventListener("mousemove", function(e) {
+
+    var x = e.pageX - this.offsetLeft; //calculates positions within the element
+    var y = e.pageY - this.offsetTop;  
+  mouseX = map(x, 0, canvas.width, -1, 1);
+  mouseY = map(y, 0, canvas.height, 1, -1);
+});
+
+function map(value, minSrc, maxSrc, minDst, maxDst) {
+  return (value - minSrc) / (maxSrc - minSrc) * (maxDst - minDst) + minDst;
+}
+;
 ```
 
 
