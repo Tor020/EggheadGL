@@ -5,6 +5,8 @@ import router from './Components/router';
 // import style from './sass/style.scss';
 // import style from './assets/sass/style.scss'
 import style from './sass_Assets/style.scss';
+
+
 Vue.config.productionTip = false;
 
 new Vue({
