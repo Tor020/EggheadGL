@@ -1,4 +1,6 @@
 Web GL Notes
+## General Assistance
+[commented boilerplate goes over the binding and compiling of shaders referenced in every webgl ](https://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html)
 
 ## Lesson 2
 
@@ -11,6 +13,7 @@ Web GL Notes
 ╚══════╝╚══════╝╚══════╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝    ╚══════╝              ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝    ╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝
 
 -->
+
 
 Web GL Concepts
 
