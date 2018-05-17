@@ -1,7 +1,9 @@
 <template lang="pug">
 div
   canvas#canvas(width='600', height='600')
+  //- script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js') included in the public index
   input(type="button" value='RunMethod' @click="runMethod")
+
   script#shader-vs(type='x-shader/x-vertex').
     attribute vec4 coords;
     attribute float pointSize;
@@ -22,7 +24,6 @@ div
 
 <script>
 import { getShaders as getShader } from '../EggheadGL Folder/getShaders.js'
-import { Φ as Φ } from '../EggheadGL Folder/getShaders.js'
 
 export default {
   computed: {},
@@ -30,16 +31,16 @@ export default {
   methods: {
     runMethod() {
       // Start of Run Method
-   
 var gl,
     shaderProgram,
     vertices,
-    angle = 0;
+    matrix = mat4.create(),
+    vertexCount = 30; // creates 10 triangles because 3 points for triangle * 10
 
-  initGL();
-  createShaders();
-  createVertices();
-  draw();
+initGL();
+createShaders();
+createVertices();
+draw();
 
 function initGL() {
   var canvas = document.getElementById("canvas");
@@ -61,11 +62,12 @@ function createShaders() {
 }
 
 function createVertices() {
-  vertices = [
-    -0.9, -0.9, 0.0,
-     0.9, -0.9, 0.0,
-     0.0,  0.9, 0.0
-  ];
+  vertices = [];
+  for(var i = 0; i < vertexCount; i++) {
+    vertices.push(Math.random() * 2 - 1);
+    vertices.push(Math.random() * 2 - 1);
+    vertices.push(Math.random() * 2 - 1);
+  }
     
   var buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -85,50 +87,27 @@ function createVertices() {
 }
 
 function draw() {
-
-  rotateZ(angle += .005);
-  rotateX(angle += .005);
-  rotateY(angle += .005);
-  //f
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-    requestAnimationFrame(draw);
-}
-
-function rotateY(angle) {
-  var cos = Math.cos(angle),
-      sin = Math.sin(angle),
-      matrix = new Float32Array(
-                [cos, 0, sin, 0,
-                  0,   1, 0, 0,
-               -sin,   0, cos, 0,
-                  0,   0, 0, 1]);
+  mat4.rotateX(matrix, matrix, -0.007);
+  mat4.rotateY(matrix, matrix, 0.013);
+  mat4.rotateZ(matrix, matrix, 0.01);
+  //              |        |    |
+  //   Matrix to receive   |    |
+  //               source matrix|
+  //                           new angle 
+  
+  
   var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
   gl.uniformMatrix4fv(transformMatrix, false, matrix);
+  
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
+  requestAnimationFrame(draw);
 }
 
-function rotateZ(angle) {
-  var cos = Math.cos(angle),
-      sin = Math.sin(angle),
-      matrix = new Float32Array(
-                [cos, sin, 0, 0,
-               -sin, cos, 0, 0,
-                  0,   0, 1, 0,
-                  0,   0, 0, 1]);
-  var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
-  gl.uniformMatrix4fv(transformMatrix, false, matrix);
-}
-function rotateX(angle) {
-  var cos = Math.cos(angle),
-      sin = Math.sin(angle),
-      matrix = new Float32Array(
-                [ 1,  0,   0,   0,
-                  0, cos, -sin, 0,
-                  0, sin, -cos, 0,
-                  0,  0,   0,   1 ]  );
-  var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
-  gl.uniformMatrix4fv(transformMatrix, false, matrix);
-}
+
+
+
+
 
 
 

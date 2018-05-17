@@ -6,6 +6,10 @@ Web GL Notes
 [matrix gist](https://github.com/start940315/matrix/blob/master/matrix.js)
 [decompose matrix gist?](https://github.com/michaelvillar/dynamics.js/blob/master/src/dynamics.coffee#L766-L920)
 
+
+[helperLib from Egghead](http://glmatrix.net/docs/index.html)
+[helperLib twgljs - webglfundamentals](http://twgljs.org/docs/)
+
 ## Lesson 2
 
 <!--

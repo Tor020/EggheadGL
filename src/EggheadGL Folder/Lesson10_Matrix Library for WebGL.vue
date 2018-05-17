@@ -1,7 +1,8 @@
 <template lang="pug">
 div
   canvas#canvas(width='600', height='600')
-  script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js')
+  //- script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.3.2/gl-matrix-min.js') included in the public index
+  input(type="button" value='RunMethod' @click="runMethod")
 
   script#shader-vs(type='x-shader/x-vertex').
     attribute vec4 coords;
@@ -22,6 +23,8 @@ div
 
 
 <script>
+import { getShaders as getShader } from '../EggheadGL Folder/getShaders.js'
+
 export default {
   computed: {},
 
@@ -32,7 +35,7 @@ var gl,
     shaderProgram,
     vertices,
     matrix = mat4.create(),
-    vertexCount = 30;
+    vertexCount = 30; // creates 10 triangles because 3 points for triangle * 10
 
 initGL();
 createShaders();
@@ -87,7 +90,12 @@ function draw() {
   mat4.rotateX(matrix, matrix, -0.007);
   mat4.rotateY(matrix, matrix, 0.013);
   mat4.rotateZ(matrix, matrix, 0.01);
-
+  //              |        |    |
+  //   Matrix to receive   |    |
+  //               source matrix|
+  //                           new angle 
+  
+  
   var transformMatrix = gl.getUniformLocation(shaderProgram, "transformMatrix");
   gl.uniformMatrix4fv(transformMatrix, false, matrix);
   
@@ -95,54 +103,6 @@ function draw() {
   gl.drawArrays(gl.TRIANGLES, 0, vertexCount);
   requestAnimationFrame(draw);
 }
-
-
-  /*
-   * https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context
-   */
-  function getShader(gl, id) {
-    var shaderScript, theSource, currentChild, shader;
-
-    shaderScript = document.getElementById(id);
-
-    if (!shaderScript) {
-      return null;
-    }
-
-    theSource = "";
-    currentChild = shaderScript.firstChild;
-
-    while (currentChild) {
-      if (currentChild.nodeType == currentChild.TEXT_NODE) {
-        theSource += currentChild.textContent;
-      }
-
-      currentChild = currentChild.nextSibling;
-    }
-    if (shaderScript.type == "x-shader/x-fragment") {
-      shader = gl.createShader(gl.FRAGMENT_SHADER);
-    } else if (shaderScript.type == "x-shader/x-vertex") {
-      shader = gl.createShader(gl.VERTEX_SHADER);
-    } else {
-      // Unknown shader type
-      return null;
-    }
-    gl.shaderSource(shader, theSource);
-
-// Compile the shader program
-    gl.compileShader(shader);
-
-// See if it compiled successfully
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
-      return null;
-    }
-
-    return shader;
-  }
-
-
-
 
 
 
